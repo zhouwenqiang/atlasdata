@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- oracle 数据库表-->
+<mapper namespace="com.atlas.mapper.YdSystemLogMapper" >
+  <resultMap id="BaseResultMap" type="com.atlas.entity.YdSystemLog" >
+    <id column="SL_ID" property="slId" jdbcType="DECIMAL" />
+    <result column="SL_CODE" property="slCode" jdbcType="DECIMAL" />
+    <result column="SL_OBJECT" property="slObject" jdbcType="VARCHAR" />
+    <result column="SL_TYPE" property="slType" jdbcType="DECIMAL" />
+    <result column="SL_CONTENT" property="slContent" jdbcType="VARCHAR" />
+    <result column="SL_DATE" property="slDate" jdbcType="TIMESTAMP" />
+    <result column="SL_ACCOUNT" property="slAccount" jdbcType="VARCHAR" />
+    <result column="CENTER_ID" property="centerId" jdbcType="DECIMAL" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from YD_SYSTEM_LOG
+    where SL_ID = #{slId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.atlas.entity.YdSystemLog" >
+    <selectKey resultType="java.lang.Integer" keyProperty="SL_ID" order="BEFORE" >
+      select max(SL_ID)+1 as SL_ID  from YD_SYSTEM_LOG
+    </selectKey>
+    insert into YD_SYSTEM_LOG (SL_ID, SL_CODE, SL_OBJECT, 
+      SL_TYPE, SL_CONTENT, SL_DATE, 
+      SL_ACCOUNT, CENTER_ID)
+    values (#{slId,jdbcType=DECIMAL}, #{slCode,jdbcType=DECIMAL}, #{slObject,jdbcType=VARCHAR}, 
+      #{slType,jdbcType=DECIMAL}, #{slContent,jdbcType=VARCHAR}, #{slDate,jdbcType=TIMESTAMP}, 
+      #{slAccount,jdbcType=VARCHAR}, #{centerId,jdbcType=DECIMAL})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atlas.entity.YdSystemLog" >
+    update YD_SYSTEM_LOG
+    set SL_CODE = #{slCode,jdbcType=DECIMAL},
+      SL_OBJECT = #{slObject,jdbcType=VARCHAR},
+      SL_TYPE = #{slType,jdbcType=DECIMAL},
+      SL_CONTENT = #{slContent,jdbcType=VARCHAR},
+      SL_DATE = #{slDate,jdbcType=TIMESTAMP},
+      SL_ACCOUNT = #{slAccount,jdbcType=VARCHAR},
+      CENTER_ID = #{centerId,jdbcType=DECIMAL}
+    where SL_ID = #{slId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select SL_ID, SL_CODE, SL_OBJECT, SL_TYPE, SL_CONTENT, SL_DATE, SL_ACCOUNT, CENTER_ID
+    from YD_SYSTEM_LOG
+    where SL_ID = #{slId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select SL_ID, SL_CODE, SL_OBJECT, SL_TYPE, SL_CONTENT, SL_DATE, SL_ACCOUNT, CENTER_ID
+    from YD_SYSTEM_LOG
+  </select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- oracle 数据库表-->
+<mapper namespace="com.atlas.mapper.YdLogOperationMapper" >
+  <resultMap id="BaseResultMap" type="com.atlas.entity.YdLogOperation" >
+    <id column="LOG_ID" property="logId" jdbcType="DECIMAL" />
+    <result column="LOG_NAME" property="logName" jdbcType="VARCHAR" />
+    <result column="LOG_TYPE" property="logType" jdbcType="VARCHAR" />
+    <result column="LOG_CONTENT" property="logContent" jdbcType="VARCHAR" />
+    <result column="LOG_DATE" property="logDate" jdbcType="TIMESTAMP" />
+    <result column="LOG_ACCOUNT" property="logAccount" jdbcType="VARCHAR" />
+    <result column="CENTER_ID" property="centerId" jdbcType="DECIMAL" />
+    <result column="LOG_ACCOUNT_IP" property="logAccountIp" jdbcType="VARCHAR" />
+    <result column="LOG_VEHICLE" property="logVehicle" jdbcType="DECIMAL" />
+    <result column="LOG_CPH" property="logCph" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from YD_LOG_OPERATION
+    where LOG_ID = #{logId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.atlas.entity.YdLogOperation" >
+    <selectKey resultType="java.lang.Integer" keyProperty="SL_ID" order="BEFORE" >
+      select max(LOG_ID)+1 as LOG_ID  from YD_LOG_OPERATION
+    </selectKey>
+    insert into YD_LOG_OPERATION (LOG_ID, LOG_NAME, LOG_TYPE, 
+      LOG_CONTENT, LOG_DATE, LOG_ACCOUNT, 
+      CENTER_ID, LOG_ACCOUNT_IP, LOG_VEHICLE, 
+      LOG_CPH)
+    values (#{logId,jdbcType=DECIMAL}, #{logName,jdbcType=VARCHAR}, #{logType,jdbcType=VARCHAR}, 
+      #{logContent,jdbcType=VARCHAR}, #{logDate,jdbcType=TIMESTAMP}, #{logAccount,jdbcType=VARCHAR}, 
+      #{centerId,jdbcType=DECIMAL}, #{logAccountIp,jdbcType=VARCHAR}, #{logVehicle,jdbcType=DECIMAL}, 
+      #{logCph,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atlas.entity.YdLogOperation" >
+    update YD_LOG_OPERATION
+    set LOG_NAME = #{logName,jdbcType=VARCHAR},
+      LOG_TYPE = #{logType,jdbcType=VARCHAR},
+      LOG_CONTENT = #{logContent,jdbcType=VARCHAR},
+      LOG_DATE = #{logDate,jdbcType=TIMESTAMP},
+      LOG_ACCOUNT = #{logAccount,jdbcType=VARCHAR},
+      CENTER_ID = #{centerId,jdbcType=DECIMAL},
+      LOG_ACCOUNT_IP = #{logAccountIp,jdbcType=VARCHAR},
+      LOG_VEHICLE = #{logVehicle,jdbcType=DECIMAL},
+      LOG_CPH = #{logCph,jdbcType=VARCHAR}
+    where LOG_ID = #{logId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select LOG_ID, LOG_NAME, LOG_TYPE, LOG_CONTENT, LOG_DATE, LOG_ACCOUNT, CENTER_ID, 
+    LOG_ACCOUNT_IP, LOG_VEHICLE, LOG_CPH
+    from YD_LOG_OPERATION
+    where LOG_ID = #{logId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select LOG_ID, LOG_NAME, LOG_TYPE, LOG_CONTENT, LOG_DATE, LOG_ACCOUNT, CENTER_ID, 
+    LOG_ACCOUNT_IP, LOG_VEHICLE, LOG_CPH
+    from YD_LOG_OPERATION
+  </select>
+</mapper>

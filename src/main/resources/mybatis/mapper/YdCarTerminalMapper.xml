@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- oracle 数据库表-->
+<mapper namespace="com.atlas.mapper.YdCarTerminalMapper">
+  <resultMap id="BaseResultMap" type="com.atlas.entity.YdCarTerminal">
+    <id column="CT_ID" jdbcType="INTEGER" property="CT_ID" />
+    <result column="CT_CODE" jdbcType="VARCHAR" property="CT_CODE" />
+    <result column="CT_TYPE" jdbcType="VARCHAR" property="CT_TYPE" />
+    <result column="CT_SIM" jdbcType="VARCHAR" property="CT_SIM" />
+    <result column="CT_TXID" jdbcType="VARCHAR" property="CT_TXID" />
+    <result column="TEAM_ID" jdbcType="INTEGER" property="TEAM_ID" />
+    <result column="CT_STATE" jdbcType="VARCHAR" property="CT_STATE" />
+    <result column="CT_SIM_SIGN" jdbcType="VARCHAR" property="CT_SIM_SIGN" />
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    CT_ID, CT_CODE, CT_TYPE, CT_SIM, CT_TXID, TEAM_ID, CT_STATE, CT_SIM_SIGN
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from YD_CAR_TERMINAL
+    where CT_ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectCtCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from YD_CAR_TERMINAL
+    where CT_CODE = #{CT_CODE,jdbcType=VARCHAR}
+  </select>
+  <select id="findAllBuleData" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+   from YD_CAR_TERMINAL
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from YD_CAR_TERMINAL
+    where CT_ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atlas.entity.YdCarTerminal">
+    <selectKey resultType="java.lang.Integer" keyProperty="CT_ID" order="BEFORE" >
+      select max(CT_ID)+1 as CT_ID  from YD_CAR_TERMINAL
+    </selectKey>
+    insert into YD_CAR_TERMINAL (CT_ID,CT_CODE, CT_TYPE, CT_SIM, CT_TXID, TEAM_ID, CT_STATE, CT_SIM_SIGN)
+    values (${CT_ID},#{CT_CODE,jdbcType=VARCHAR}, #{CT_TYPE,jdbcType=VARCHAR},
+      #{CT_SIM,jdbcType=VARCHAR}, #{CT_TXID,jdbcType=VARCHAR}, #{TEAM_ID,jdbcType=INTEGER},
+      #{CT_STATE,jdbcType=VARCHAR}, #{CT_SIM_SIGN,jdbcType=VARCHAR})
+  </insert>
+</mapper>

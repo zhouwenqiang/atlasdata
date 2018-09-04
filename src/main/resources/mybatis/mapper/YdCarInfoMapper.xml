@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- oracle 数据库表-->
+<mapper namespace="com.atlas.mapper.YdCarInfoMapper">
+  <resultMap id="BaseResultMap" type="com.atlas.entity.YdCarInfo">
+    <id column="CAR_ID" jdbcType="INTEGER" property="CAR_ID" />
+    <result column="ZCCPXH" jdbcType="VARCHAR" property="ZCCPXH" />
+    <result column="CZ" jdbcType="VARCHAR" property="CZ" />
+    <result column="CLFDJH" jdbcType="VARCHAR" property="CLFDJH" />
+    <result column="NJYXQ" jdbcType="TIMESTAMP" property="NJYXQ" />
+    <result column="QCBYSJ" jdbcType="TIMESTAMP" property="QCBYSJ" />
+    <result column="BXDQSJ" jdbcType="TIMESTAMP" property="BXDQSJ" />
+    <result column="JYQYBM" jdbcType="VARCHAR" property="JYQYBM" />
+    <result column="BXLX" jdbcType="VARCHAR" property="BXLX" />
+    <result column="FX_BEGIN" jdbcType="TIMESTAMP" property="FX_BEGIN" />
+    <result column="FX_END" jdbcType="TIMESTAMP" property="FX_END" />
+    <result column="CZ_MOBILE" jdbcType="VARCHAR" property="CZ_MOBILE" />
+    <result column="WXPHWFL" jdbcType="INTEGER" property="WXPHWFL" />
+
+    <result column="ZZL" jdbcType="INTEGER" property="ZZL" />
+    <result column="WKCCC" jdbcType="INTEGER" property="WKCCC" />
+    <result column="WKCCK" jdbcType="INTEGER" property="WKCCK" />
+    <result column="WKCCG" jdbcType="INTEGER" property="WKCCG" />
+    <result column="HXNBCCC" jdbcType="INTEGER" property="HXNBCCC" />
+    <result column="HXNBCCK" jdbcType="INTEGER" property="HXNBCCK" />
+    <result column="HXNBCCG" jdbcType="INTEGER" property="HXNBCCG" />
+    <result column="ZS" jdbcType="INTEGER" property="ZS" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CAR_ID, ZCCPXH, CZ, CLFDJH, NJYXQ, QCBYSJ, BXDQSJ, JYQYBM, BXLX, FX_BEGIN,
+    FX_END, CZ_MOBILE, WXPHWFL
+    ,ZZL,WKCCC,WKCCK,WKCCG,HXNBCCC,HXNBCCK,HXNBCCG,ZS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from YD_CAR_INFO
+    where CAR_ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findAllBuleData" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+   from YD_CAR_INFO
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from YD_CAR_INFO
+    where CAR_ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <!--<insert id="insert" parameterType="com.atlas.entity.YdCarInfo">
+     insert into YD_CAR_INFO (CAR_ID, ZCCPXH, CZ, CLFDJH, NJYXQ, QCBYSJ, BXDQSJ,JYQYBM,BXLX, FX_BEGIN,
+    FX_END, CZ_MOBILE, WXPHWFL)
+    values (#{CAR_ID,jdbcType=INTEGER}, #{ZCCPXH,jdbcType=VARCHAR}, #{CZ,jdbcType=VARCHAR},
+      #{CLFDJH,jdbcType=VARCHAR}, #{NJYXQ,jdbcType=TIMESTAMP}, #{QCBYSJ,jdbcType=TIMESTAMP},
+      #{BXDQSJ,jdbcType=TIMESTAMP}, #{JYQYBM,jdbcType=VARCHAR}, #{BXLX,jdbcType=VARCHAR},
+      #{FX_BEGIN,jdbcType=TIMESTAMP}, #{FX_END,jdbcType=TIMESTAMP},
+       #{CZ_MOBILE,jdbcType=VARCHAR},#{WXPHWFL,jdbcType=INTEGER})
+  </insert>-->
+  <insert id="insert" parameterType="com.atlas.entity.YdCarInfo">
+    insert into YD_CAR_INFO (CAR_ID, ZCCPXH, CZ, CLFDJH, NJYXQ, QCBYSJ, BXDQSJ,JYQYBM,BXLX, FX_BEGIN,
+    FX_END, WXPHWFL, CZ_MOBILE,ZZL,WKCCC,WKCCK,WKCCG,HXNBCCC,HXNBCCK,HXNBCCG,ZS)
+    values (#{CAR_ID,jdbcType=INTEGER}, #{ZCCPXH,jdbcType=VARCHAR}, #{CZ,jdbcType=VARCHAR},
+    #{CLFDJH,jdbcType=VARCHAR}, #{NJYXQ,jdbcType=TIMESTAMP}, #{QCBYSJ,jdbcType=TIMESTAMP},
+    #{BXDQSJ,jdbcType=TIMESTAMP}, #{JYQYBM,jdbcType=VARCHAR}, #{BXLX,jdbcType=VARCHAR},
+    #{FX_BEGIN,jdbcType=TIMESTAMP}, #{FX_END,jdbcType=TIMESTAMP},
+    #{WXPHWFL,jdbcType=INTEGER}, #{CZ_MOBILE,jdbcType=VARCHAR}, #{ZZL,jdbcType=INTEGER},
+    #{WKCCC,jdbcType=INTEGER}, #{WKCCK,jdbcType=INTEGER}, #{WKCCG,jdbcType=INTEGER}, #{HXNBCCC,jdbcType=INTEGER},
+    #{HXNBCCK,jdbcType=INTEGER}, #{HXNBCCG,jdbcType=INTEGER}, #{ZS,jdbcType=INTEGER})
+  </insert>
+</mapper>

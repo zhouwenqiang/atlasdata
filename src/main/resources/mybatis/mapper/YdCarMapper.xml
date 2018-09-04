@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- oracle 数据库表-->
+<mapper namespace="com.atlas.mapper.YdCarMapper">
+  <resultMap id="BaseResultMap" type="com.atlas.entity.YdCar">
+    <id column="CAR_ID" jdbcType="INTEGER" property="CAR_ID" />
+    <result column="CAR_CPH" jdbcType="VARCHAR" property="CAR_CPH" />
+    <result column="CAR_COLOR" jdbcType="VARCHAR" property="CAR_COLOR" />
+    <result column="CAR_TYPE" jdbcType="VARCHAR" property="CAR_TYPE" />
+    <result column="CAR_TRADE" jdbcType="VARCHAR" property="CAR_TRADE" />
+    <result column="TERMINAL" jdbcType="VARCHAR" property="TERMINAL" />
+    <result column="TEAM_ID" jdbcType="VARCHAR" property="TEAM_ID" />
+    <result column="CAR_ACCOUNT" jdbcType="VARCHAR" property="CAR_ACCOUNT" />
+    <result column="CAR_DATE" jdbcType="TIMESTAMP" property="CAR_DATE" />
+    <result column="CAR_STATE" jdbcType="VARCHAR" property="CAR_STATE" />
+    <result column="CAR_PLACE" jdbcType="VARCHAR" property="CAR_PLACE" />
+    <result column="CAR_PW" jdbcType="VARCHAR" property="CAR_PW" />
+    <result column="CAR_SERVICE_STOP" jdbcType="VARCHAR" property="CAR_SERVICE_STOP" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CAR_ID, CAR_CPH, CAR_COLOR, CAR_TYPE, CAR_TRADE, TERMINAL, TEAM_ID, CAR_ACCOUNT, CAR_DATE, CAR_STATE,
+    CAR_PLACE, CAR_PW, CAR_SERVICE_STOP
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from YD_CAR
+    where CAR_ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectCarCph" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from YD_CAR
+    where CAR_CPH = #{CAR_CPH,jdbcType=VARCHAR}
+  </select>
+  <select id="findAllBuleData" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+   from YD_CAR
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from YD_CAR
+    where CAR_ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atlas.entity.YdCar">
+    <selectKey resultType="java.lang.Integer" keyProperty="CAR_ID" order="BEFORE" >
+      select max(CAR_ID)+1 as CAR_ID  from YD_CAR
+    </selectKey>
+    insert into YD_CAR (CAR_ID,CAR_CPH, CAR_COLOR, CAR_TYPE, CAR_TRADE, TERMINAL, TEAM_ID, CAR_ACCOUNT, CAR_DATE, CAR_STATE,
+    CAR_PLACE, CAR_PW, CAR_SERVICE_STOP)
+    values (#{CAR_ID,jdbcType=INTEGER},#{CAR_CPH,jdbcType=VARCHAR}, #{CAR_COLOR,jdbcType=VARCHAR},
+      #{CAR_TYPE,jdbcType=VARCHAR}, #{CAR_TRADE,jdbcType=VARCHAR}, #{TERMINAL,jdbcType=VARCHAR},
+      #{TEAM_ID,jdbcType=VARCHAR}, #{CAR_ACCOUNT,jdbcType=VARCHAR}, #{CAR_DATE,jdbcType=TIMESTAMP},
+      #{CAR_STATE,jdbcType=VARCHAR}, #{CAR_PLACE,jdbcType=VARCHAR}, #{CAR_PW,jdbcType=VARCHAR},
+      #{CAR_SERVICE_STOP,jdbcType=VARCHAR})
+  </insert>
+
+</mapper>

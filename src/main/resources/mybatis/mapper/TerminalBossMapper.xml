@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- myql 数据库表-->
+<mapper namespace="com.atlas.mapper.TerminalBossMapper" >
+  <resultMap id="BaseResultMap" type="com.atlas.entity.TerminalBoss" >
+    <id column="TB_ID" property="tbId" jdbcType="INTEGER" />
+    <result column="TERMINAL_CODE" property="terminalCode" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="SELECTBEGINDATE" property="selectBeginDate" jdbcType="VARCHAR" />
+    <result column="SELECTENDDATE" property="selectEndDate" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="INSERTSTATE" property="insertstate" jdbcType="INTEGER" />
+    <result column="RESCODE" property="rescode" jdbcType="VARCHAR" />
+    <result column="RESMSG" property="resmsg" jdbcType="VARCHAR" />
+    <result column="DETAILMSG" property="detailmsg" jdbcType="VARCHAR" />
+    <result column="PAGENUMBER" property="pagenumber" jdbcType="INTEGER" />
+    <result column="PAGECOUNT" property="pagecount" jdbcType="INTEGER" />
+    <result column="IMEIINFO" property="imeiinfo" jdbcType="VARCHAR" />
+    <result column="IMEINO" property="imeino" jdbcType="VARCHAR" />
+    <result column="BANDNAME" property="bandname" jdbcType="VARCHAR" />
+    <result column="TYPECODE" property="typecode" jdbcType="VARCHAR" />
+    <result column="INPUTDATE" property="inputdate" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="INSERTDATE" property="insertdate" jdbcType="TIMESTAMP" />
+    <result column="INSERTMSG" property="insertmsg" jdbcType="VARCHAR" />
+    <result column="INSERTCTID" property="insertctid" jdbcType="INTEGER" />
+    <result column="INSERTCARID" property="insertcarid" jdbcType="INTEGER" />
+    <result column="INSERTINFOCARID" property="insertinfocarid" jdbcType="INTEGER" />
+    <result column="INSERTIMEIINFOID" property="insertimeiinfoid" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from TERMINAL_BOSS
+    where TB_ID = #{tbId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atlas.entity.TerminalBoss" >
+    <selectKey resultType="java.lang.Integer" keyProperty="tbId" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into TERMINAL_BOSS (TERMINAL_CODE, CREATE_DATE, SELECTBEGINDATE,SELECTENDDATE,
+      REMARKS, INSERTSTATE,
+      RESCODE, RESMSG, DETAILMSG, 
+      PAGENUMBER, PAGECOUNT, IMEIINFO, 
+      IMEINO, BANDNAME, TYPECODE, 
+      INPUTDATE, STATUS, INSERTDATE, 
+      INSERTMSG, INSERTCTID, INSERTCARID, 
+      INSERTINFOCARID,INSERTIMEIINFOID)
+    values (#{terminalCode,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{selectBeginDate,jdbcType=VARCHAR},#{selectEndDate,jdbcType=VARCHAR},
+      #{remarks,jdbcType=VARCHAR},  #{insertstate,jdbcType=INTEGER},
+      #{rescode,jdbcType=VARCHAR}, #{resmsg,jdbcType=VARCHAR}, #{detailmsg,jdbcType=VARCHAR}, 
+      #{pagenumber,jdbcType=INTEGER}, #{pagecount,jdbcType=INTEGER}, #{imeiinfo,jdbcType=VARCHAR}, 
+      #{imeino,jdbcType=VARCHAR}, #{bandname,jdbcType=VARCHAR}, #{typecode,jdbcType=VARCHAR}, 
+      #{inputdate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{insertdate,jdbcType=TIMESTAMP}, 
+      #{insertmsg,jdbcType=VARCHAR}, #{insertctid,jdbcType=INTEGER}, #{insertcarid,jdbcType=INTEGER}, 
+      #{insertinfocarid,jdbcType=INTEGER},#{insertimeiinfoid,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atlas.entity.TerminalBoss" >
+    update TERMINAL_BOSS
+    set TERMINAL_CODE = #{terminalCode,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      SELECTBEGINDATE = #{selectBeginDate,jdbcType=VARCHAR},
+      SELECTENDDATE = #{selectEndDate,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      INSERTSTATE = #{insertstate,jdbcType=INTEGER},
+      RESCODE = #{rescode,jdbcType=VARCHAR},
+      RESMSG = #{resmsg,jdbcType=VARCHAR},
+      DETAILMSG = #{detailmsg,jdbcType=VARCHAR},
+      PAGENUMBER = #{pagenumber,jdbcType=INTEGER},
+      PAGECOUNT = #{pagecount,jdbcType=INTEGER},
+      IMEIINFO = #{imeiinfo,jdbcType=VARCHAR},
+      IMEINO = #{imeino,jdbcType=VARCHAR},
+      BANDNAME = #{bandname,jdbcType=VARCHAR},
+      TYPECODE = #{typecode,jdbcType=VARCHAR},
+      INPUTDATE = #{inputdate,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=INTEGER},
+      INSERTDATE = #{insertdate,jdbcType=TIMESTAMP},
+      INSERTMSG = #{insertmsg,jdbcType=VARCHAR},
+      INSERTCTID = #{insertctid,jdbcType=INTEGER},
+      INSERTCARID = #{insertcarid,jdbcType=INTEGER},
+      INSERTINFOCARID = #{insertinfocarid,jdbcType=INTEGER},
+      INSERTIMEIINFOID = #{insertimeiinfoid,jdbcType=INTEGER}
+    where TB_ID = #{tbId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select TB_ID, TERMINAL_CODE, CREATE_DATE, SELECTBEGINDATE,SELECTENDDATE,REMARKS,  INSERTSTATE, RESCODE, RESMSG,
+    DETAILMSG, PAGENUMBER, PAGECOUNT, IMEIINFO, IMEINO, BANDNAME, TYPECODE, INPUTDATE, 
+    STATUS, INSERTDATE, INSERTMSG, INSERTCTID, INSERTCARID, INSERTINFOCARID,INSERTIMEIINFOID
+    from TERMINAL_BOSS
+    where TB_ID = #{tbId,jdbcType=INTEGER}
+  </select>
+  <select id="selectTerminalCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select TB_ID, TERMINAL_CODE, CREATE_DATE,SELECTBEGINDATE,SELECTENDDATE, REMARKS,  INSERTSTATE, RESCODE, RESMSG,
+    DETAILMSG, PAGENUMBER, PAGECOUNT, IMEIINFO, IMEINO, BANDNAME, TYPECODE, INPUTDATE,
+    STATUS, INSERTDATE, INSERTMSG, INSERTCTID, INSERTCARID, INSERTINFOCARID,INSERTIMEIINFOID
+    from terminal_Boss where terminal_code=#{TERMINAL_CODE,jdbcType=VARCHAR} order by tb_id desc limit 1
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select TB_ID, TERMINAL_CODE, CREATE_DATE,SELECTBEGINDATE,SELECTENDDATE, REMARKS,  INSERTSTATE, RESCODE, RESMSG,
+    DETAILMSG, PAGENUMBER, PAGECOUNT, IMEIINFO, IMEINO, BANDNAME, TYPECODE, INPUTDATE, 
+    STATUS, INSERTDATE, INSERTMSG, INSERTCTID, INSERTCARID, INSERTINFOCARID,INSERTIMEIINFOID
+    from TERMINAL_BOSS
+  </select>
+</mapper>

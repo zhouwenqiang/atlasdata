@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- myql 数据库表-->
+<mapper namespace="com.atlas.mapper.ImeiInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.atlas.entity.ImeiInfo" >
+    <id column="IMEI_ID" property="imeiId" jdbcType="INTEGER" />
+    <result column="MODEL_CODE" property="modelCode" jdbcType="VARCHAR" />
+    <result column="BAND_NAME" property="bandName" jdbcType="VARCHAR" />
+    <result column="DATE_TIME" property="dateTime" jdbcType="VARCHAR" />
+    <result column="IMEI_NO" property="imeiNo" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="ENABLE" property="enable" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from imei_info
+    where IMEI_ID = #{imeiId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atlas.entity.ImeiInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="imeiId" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into imei_info (MODEL_CODE, BAND_NAME,
+      DATE_TIME, IMEI_NO, STATUS, 
+      TYPE_CODE, CREATE_DATE, ENABLE
+      )
+    values (#{modelCode,jdbcType=VARCHAR}, #{bandName,jdbcType=VARCHAR},
+      #{dateTime,jdbcType=VARCHAR}, #{imeiNo,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{typeCode,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{enable,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atlas.entity.ImeiInfo" >
+    update imei_info
+    set MODEL_CODE = #{modelCode,jdbcType=VARCHAR},
+      BAND_NAME = #{bandName,jdbcType=VARCHAR},
+      DATE_TIME = #{dateTime,jdbcType=VARCHAR},
+      IMEI_NO = #{imeiNo,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      TYPE_CODE = #{typeCode,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      ENABLE = #{enable,jdbcType=INTEGER}
+    where IMEI_ID = #{imeiId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select IMEI_ID, MODEL_CODE, BAND_NAME, DATE_TIME, IMEI_NO, STATUS, TYPE_CODE, CREATE_DATE, 
+    ENABLE
+    from imei_info
+    where IMEI_ID = #{imeiId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCodeKey" resultMap="BaseResultMap">
+    select IMEI_ID, MODEL_CODE, BAND_NAME, DATE_TIME, IMEI_NO, STATUS, TYPE_CODE, CREATE_DATE,
+    ENABLE
+    from imei_info
+    where MODEL_CODE = #{modelCode} and IMEI_NO = #{imeiNo} ORDER BY IMEI_ID desc limit 1
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select IMEI_ID, MODEL_CODE, BAND_NAME, DATE_TIME, IMEI_NO, STATUS, TYPE_CODE, CREATE_DATE, 
+    ENABLE
+    from imei_info
+  </select>
+</mapper>

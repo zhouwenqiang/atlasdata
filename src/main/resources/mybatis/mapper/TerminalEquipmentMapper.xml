@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mysql 数据库表-->
+<mapper namespace="com.atlas.mapper.TerminalEquipmentMapper">
+  <resultMap id="BaseResultMap" type="com.atlas.entity.TerminalEquipment">
+    <id column="TE_ID" jdbcType="INTEGER" property="te_id" />
+    <result column="MT_NAME" jdbcType="VARCHAR" property="mt_name" />
+    <result column="BRAND_NAME" jdbcType="VARCHAR" property="brand_name" />
+    <result column="TE_MODEL" jdbcType="VARCHAR" property="te_model" />
+    <result column="TE_NAME" jdbcType="VARCHAR" property="te_name" />
+    <result column="MODEL_CODE" jdbcType="VARCHAR" property="model_code" />
+    <result column="TAC_CODE" jdbcType="INTEGER" property="tac_code" />
+    <result column="CONTACT_INFORMATION" jdbcType="VARCHAR" property="contact_information" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="ENABLE" jdbcType="INTEGER" property="enable" />
+    <result column="TERMINALTYPEID" jdbcType="INTEGER" property="terminaltypeid" />
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    TE_ID, MT_NAME,BRAND_NAME,TE_MODEL, TE_NAME, MODEL_CODE, TAC_CODE, CONTACT_INFORMATION, REMARKS, ENABLE,TERMINALTYPEID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from terminal_equipment
+    where TE_ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findAllBuleData" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+   from terminal_equipment where ENABLE=1
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from terminal_equipment
+    where TE_ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atlas.entity.TerminalEquipment">
+    <selectKey resultType="java.lang.Integer" keyProperty="TE_ID" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into terminal_equipment (MT_NAME,BRAND_NAME,TE_MODEL, TE_NAME, MODEL_CODE, TAC_CODE, CONTACT_INFORMATION, REMARKS, ENABLE,TERMINALTYPEID)
+    values (#{MT_NAME,jdbcType=VARCHAR},#{BRAND_NAME,jdbcType=VARCHAR},#{TE_MODEL,jdbcType=VARCHAR}, #{TE_NAME,jdbcType=VARCHAR},
+      #{MODEL_CODE,jdbcType=VARCHAR}, #{TAC_CODE,jdbcType=VARCHAR}, #{CONTACT_INFORMATION,jdbcType=INTEGER},
+      #{REMARKS,jdbcType=VARCHAR}, #{ENABLE,jdbcType=INTEGER}, #{TERMINALTYPEID,jdbcType=INTEGER})
+  </insert>
+</mapper>
